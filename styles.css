@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: sans-serif;
+}
+
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#to-be-typed {
+    padding: 20px;
+    max-width: 400px;
+    font-size: 20px;
+    text-align: center;
+    background-color: #fff;
+    border: 2px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#words-typed {
+    padding: 10px;
+    width: 200px;
+    font-size: 16px;
+}
+
+#timer {
+    font-size: 20px;
+}
