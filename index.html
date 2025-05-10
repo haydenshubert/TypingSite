@@ -6,17 +6,25 @@
 
     <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-    <main>
+    <!-- Main content -->
+    <main> 
+
+        <!-- Contains the words to be typed (static for now) -->
         <div class="center-wrapper">
             <p id="to-be-typed">There was a young man by the name Jerome. He was a timid shy little guy who had zero friends. One day when he was feeling confident enough to come out from under his disgusting bridge, he found a penny. This was an ordinary penny that had Abraham Lincoln on it. He went to get is usually coffee out of the coffee volcano when all of a sudden, there was a loud boom. "Kachow!" Kevin died that day and no one every got to hear his stories on how he would slay the ants that crawled in his trash can.</p>
         </div>
+        <!-- Contains the button to start startTyping() and the input box -->
         <div class="center-wrapper">
+            <button onclick="startTyping()">Start Typing</button>
             <input type="text" id="words-typed" placeholder="Start typing ..." />
         </div>
+        <!--  -->
         <div class="center-wrapper">
-            <h3>You have <span id="timer">10</span> seconds to type</h3>
+            <h3>You have <span id="timer">10</span> seconds to type</h3>    <!-- Change the number if time is different -->
         </div>
+
     </main>
 
     <script src="script.js"></script>

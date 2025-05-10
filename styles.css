@@ -1,13 +1,13 @@
 body {
-    margin: 0;
-    height: 100vh;
+    margin: 0;                  /* Removes all default margins around the element */
+    height: 100vh;              /* 100% of viewport height */
     font-family: sans-serif;
 }
 
 .center-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex;              /* Turns the element into a flex container */
+    justify-content: center;    /* Horizontally centers the flex items inside the container */
+    align-items: center;        /* Vertically centers the flex items inside the container */
 }
 
 #to-be-typed {
