@@ -2,7 +2,7 @@
 <head>
     <title>API Functionality</title>
     <meta charset="UTF-8">
-    <link href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     
@@ -18,7 +18,9 @@
         {% if message %}
             <p>{{ message }}</p>
         {% endif %}
+
+        <p id="java-test"></p>
     </main>
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
