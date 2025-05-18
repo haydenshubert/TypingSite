@@ -1,1 +1,2 @@
-document.getElementById('java-test').innerText = "Hello this is test";
+// TEST
+// document.getElementById('java-test').inner = "Hello this is test";
