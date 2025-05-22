@@ -12,7 +12,7 @@ body {
 
 #to-be-typed {
     padding: 20px;
-    max-width: 400px;
+    max-width: 600px;
     font-size: 20px;
     text-align: center;
     background-color: #fff;
@@ -35,3 +35,8 @@ body {
     width: 200px;
     font-size: 16px;
 }
+
+.hidden {
+    display: none;
+}
+

@@ -1,7 +1,7 @@
 ///////// TYPING FUNCTIONALITY /////////
 
 const input = document.getElementById('words-typed');
-input.disabled = true;
+// input.disabled = true;
 
 const timerDisplay = document.getElementById('timer');
 let time = 60;  // 60 second timer
@@ -29,11 +29,18 @@ function getInput() {
 
 function startTyping() {
     input.value = "";
-    input.disabled = false;
+    // input.disabled = false;
     input.focus();
     timer(time);
     getInput();
 }
+
+function handleFirstKeydown(event) {
+    startTyping();
+
+    input.removeEventListener("keydown", handleFirstKeydown);
+}
+input.addEventListener("keydown", handleFirstKeydown);
 
 /////// END OF TYPING FUNCTIONALITY ///////
 
@@ -55,4 +62,15 @@ async function sendPrompt() {
     const output = data.response || data.error;
 
     document.getElementById('to-be-typed').innerText = output;
+    showElement('words-typed')  // Has the 'words-typed' id now
 }
+
+/////// END OF SENDING PROMPT ////////
+
+/////// HIDING ELEMENTS /////////
+
+function showElement(id) {
+    document.getElementById(id).classList.remove("hidden");
+}
+
+/////// END OF HIDING ELEMENTS //////

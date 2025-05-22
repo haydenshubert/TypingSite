@@ -19,18 +19,19 @@
         </div>
 
         <div class="center-wrapper">
-            <input id="words-typed" placeholder="Type text here...">
-        </div>
-        <div class="center-wrapper">
-            <button id="temporary-start-button" onclick="startTyping()">Start Typing</button>
+            <textarea 
+                class="hidden"
+                id="words-typed" 
+                
+                rows="4" cols="70"
+                autocorrect="off" autocapitalize="off" spellcheck="off" ></textarea>
         </div>
         <div class="center-wrapper">
             <h3>You have <span id="timer">60</span> seconds to type</h3>
         </div>
     </main>
 
-<!-- Here is where the state of the program is currently at:
-    It starts off with the input box for a prompt that is sent to Ollama's api for the llama3.2 model by pressing the 'Send Prompt' button. This button calls a javascript function which basically makes the text readable to send to the api and it changes the text of the 'to-be-typed'. Then under that section is the input which should probably be changed to a text box so i can see more of the words I am typing. It is only activated when you press the 'Start Typing' button which gives you a time window of what ever specific time I give. At the bottom there is a timer and console.log shows what we just typed and if the sendPrompt() function was called. -->
+
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
