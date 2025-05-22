@@ -5,9 +5,9 @@ body {
 }
 
 .center-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex;              /* Turns the element inot a flex container */
+    justify-content: center;    /* This horizontally centers flex items in a container */
+    align-items: center;        /* This vertically centers flex items in a containers height */
 }
 
 #to-be-typed {
@@ -37,6 +37,6 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none;      /* This makes the element not appear on screen (can be used to toggle or remove so you can make an element appear) */
 }
 

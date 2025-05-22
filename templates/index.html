@@ -3,31 +3,33 @@
     <title>Main Program</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">   <!-- Have to use the double brackets `{{}}` when connecting python with html via Flask -->
 </head>
 <body>
     <!-- Main content -->
     <main>
-
+        <!-- Prompt to send to Ollama model -->
         <div class="center-wrapper">
             <input type="text" id="prompt" placeholder="Enter prompt here ...">
             <button onclick="sendPrompt()">Send Prompt</button>
         </div>
-
+        <!-- Words that will be received and you can type -->
         <div class="center-wrapper">
             <p id="to-be-typed">Text will appear here ...</p>
         </div>
-
+        <!-- Text area where the user types words (appears after prompt responds)-->
         <div class="center-wrapper">
+            <!-- The "hidden" class will be removed after the sendPrompt() function is called -->
             <textarea 
-                class="hidden"
+                class="hidden"  
                 id="words-typed" 
                 placeholder="Start typing..."
                 rows="4" cols="70"
                 autocorrect="off" autocapitalize="off" spellcheck="off" ></textarea>
         </div>
+        <!-- The timer will be displayed here -->
         <div class="center-wrapper">
-            <h3>You have <span id="timer">60</span> seconds to type</h3>
+            <h3>You have <span id="timer">60</span> seconds to type</h3>    <!-- Span is used to change only the seconds that are left and not the heading -->
         </div>
     </main>
 
