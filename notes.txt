@@ -1,11 +1,12 @@
 STATE OF THE PROGRAM NOW:
-    The current state of the program allows the user to send a prompt to llama3.2 from Ollama using an API. It is in a text input element and sent with a button. It then changes the text where it says "Text will appear here" with the response from llama3.2 model. After that, it shows the textarea where you can start typing and when the first key is pressed it starts the timer. Once the timer is up, the textarea will be disabled and in the console, it will show what text you managed to type.
+    The current state of the program allows the user to send a prompt to llama3.2 from Ollama using an API. It is in a text input element and sent with a button which disappears when you press enter or the button. It then changes the text where it says "Text will appear here" with the response from llama3.2 model. After that, it shows the textarea where you can start typing and when the first key is pressed it starts the timer. Once the timer is up, the textarea will be disabled and in the console, it will show what text you managed to type. There will also be a button to try another prompt at the bottom which will make the prompt elements reappear.
 
 
 FEATURES TO ADD:
 
     - WPM display at the end of timer
-    - Allow the user to press enter to send prompt
     - Make the words "You have __ seconds to type" appear after the response is received using the hidden class
     - Make text-to-be-typed all bunched up with no new lines or extra tabs
     - Make text-to-be-typed look better all around and same with the words-typed
+    - Add focus to elements when needed
+    - Make buttons look nicer

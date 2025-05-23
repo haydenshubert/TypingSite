@@ -9,8 +9,8 @@
     <!-- Main content -->
     <main>
 
-        <div class="center-wrapper">
-            <input type="text" id="prompt" placeholder="Enter prompt here ...">
+        <div class="center-wrapper" id="prompt-elements">
+            <input type="text" id="prompt-input" placeholder="Enter prompt here ...">
             <button onclick="sendPrompt()">Send Prompt</button>
         </div>
 
@@ -28,6 +28,9 @@
         </div>
         <div class="center-wrapper">
             <h3>You have <span id="timer">60</span> seconds to type</h3>
+        </div>
+        <div class="center-wrapper">
+            <button id="redo-prompt" class="hidden" onclick="showElement('prompt-elements')">Try Another Prompt</button>
         </div>
     </main>
 

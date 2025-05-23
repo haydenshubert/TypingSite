@@ -1,10 +1,9 @@
 ///////// TYPING FUNCTIONALITY /////////
 
 const input = document.getElementById('words-typed');
-// input.disabled = true;
-
 const timerDisplay = document.getElementById('timer');
 let time = 60;  // 60 second timer
+
 
 function timer(timeLeft) {
     const countdown = setInterval(() => {
@@ -17,19 +16,17 @@ function timer(timeLeft) {
     }, 1000);
 }
 
-
 function getInput() {
     setTimeout(() => {
         input.disabled = true;
         const inputValue = input.value;
         console.log("You tyepd: ", inputValue);
+        showElement('redo-prompt')
     }, 60000)   // sets a timer for how long the input box is enabled
 }
 
-
 function startTyping() {
     input.value = "";
-    // input.disabled = false;
     input.focus();
     timer(time);
     getInput();
@@ -48,8 +45,8 @@ input.addEventListener("keydown", handleFirstKeydown);
 
 async function sendPrompt() {
     console.log("Function was called");
-    const prompt = document.getElementById('prompt').value;
-
+    const prompt = document.getElementById('prompt-input').value;
+    hideElement('prompt-elements');
     const res = await fetch('/ask', {
         method: 'POST',
         headers: {
@@ -63,7 +60,15 @@ async function sendPrompt() {
 
     document.getElementById('to-be-typed').innerText = output;
     showElement('words-typed')  // Has the 'words-typed' id now
+    document.getElementById('prompt-input').value = "";
 }
+
+const promptInput = document.getElementById('prompt-input');
+promptInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        sendPrompt();
+    }
+});
 
 /////// END OF SENDING PROMPT ////////
 
@@ -71,6 +76,10 @@ async function sendPrompt() {
 
 function showElement(id) {
     document.getElementById(id).classList.remove("hidden");
+}
+
+function hideElement(id) {
+    document.getElementById(id).classList.add("hidden");
 }
 
 /////// END OF HIDING ELEMENTS //////
