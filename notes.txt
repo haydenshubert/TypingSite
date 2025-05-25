@@ -10,3 +10,9 @@ FEATURES TO ADD:
     - Make text-to-be-typed look better all around and same with the words-typed
     - Add focus to elements when needed
     - Make buttons look nicer
+
+WINDOWS ENV <env_name> == typingEnv
+    - ``python –m venv <env_name>`` (creates an environment in venv) 
+    - ``source <env_name>/Scripts/activate`` (activate the your venv) 
+    - `` deactivate``  (to deactivate venv) 
+    - ``rm –rf <env_name>`` (deletes the venv)
