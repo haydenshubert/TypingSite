@@ -1,29 +1,19 @@
 ///////// TYPING FUNCTIONALITY /////////
 
 const input = document.getElementById('words-typed');
-let time = 10;  // 60 second timer
-
-
-function timer(timeLeft) {
-    const countdown = setInterval(() => {
-        timeLeft--;
-        document.getElementById('timer').textContent = timeLeft;
-
-        if (timeLeft <= 0) {
-            clearInterval(countdown);
-        }
-    }, 1000); // 1000 for one second intervals
-}
+let time = 60;  // 60 second timer
 
 function getInput() {
     const input = document.getElementById('words-typed');
 
     setTimeout(() => {
         input.disabled = true;
-        console.log("You tyepd: ", input.value);///////////////////////////////////////////
+        hideElement('clock');
         showElement('redo-prompt');
+        showElement('results')
         calculations();
-    }, 10000);   // sets a timer for how long the input box is enabled (minute = 60000)
+        console.log("You tyepd: ", input.value);///////////////////////////////////////////
+    }, 60000);   // sets a timer for how long the input box is enabled (minute = 60000)
 }
 
 function startTyping() {
@@ -32,6 +22,7 @@ function startTyping() {
 }
 
 function handleFirstKeydown(event) {
+    showElement('clock');
     startTyping();
     input.removeEventListener("keydown", handleFirstKeydown);
 }
@@ -40,12 +31,12 @@ function handleFirstKeydown(event) {
 /////// TYPING FUNCTIONALITY END ///////
 
 
-
 /////// SEND PROMPT TO OLLAMA ///////////
 
 async function sendPrompt() {
     console.log("Function was called");///////////////////////////////////////////////
-    const prompt = document.getElementById('prompt-input').value;
+    const prompt = "Write a 100 word paragraph about this topic: " + document.getElementById('prompt-input').value;
+    console.log(prompt);///////////////////////////////////////////////////////////////////
     const wordsTyped = document.getElementById('words-typed');
     hideElement('prompt-elements');
     const res = await fetch('/ask', {
@@ -60,14 +51,15 @@ async function sendPrompt() {
     const output = data.response || data.error;
 
     document.getElementById('to-be-typed').innerText = output;
-    showElement('words-typed')  // Has the 'words-typed' id now
+    showElement('words-typed');  // Has the 'words-typed' id now
     wordsTyped.value = "";
     wordsTyped.disabled = false;
     wordsTyped.focus();
     document.getElementById('prompt-input').value = "";
-//
+
     input.addEventListener("keydown", handleFirstKeydown);
-//
+    hideElement('results');
+    hideElement('redo-prompt');
 }
 
 const promptInput = document.getElementById('prompt-input');
@@ -78,74 +70,3 @@ promptInput.addEventListener("keydown", function(event) {
 });
 
 /////// SENDING PROMPT END ////////
-
-
-
-/////// CALCULATIONS //////////
-
-function calculations() {
-    const targetText = document.getElementById('to-be-typed').innerText.trim();
-    const typedText = document.getElementById('words-typed').value.trim();
-
-    const targetWords = targetText.split(/\s+/);    // /\s+/ makes sure extra spaces, tabs, or newlines don't mess up word splitting
-    const typedWords = typedText.split(/\s+/);
-
-    const m = targetWords.length;
-    const n = typedWords.length;
-
-    const dp = Array.from({ length: m + 1} , () => Array(n + 1).fill(0));
-
-    console.log("Target Text: ", targetText, "Typed Text: ", typedText);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    for (let i = 1; i <= m; i++) {
-        for (let j = 1; j <= n; j++) {
-            if (targetWords[i - 1] === typedWords[j - 1]) {
-                dp[i][j] = dp[i - 1][j - 1] + 1;
-            } else {
-                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-            }
-        }
-    }
-
-    const correct = dp[m][n];
-    const errors = n - correct;
-    const grossWPM = typedText.length / 5;  // This does the total characters divided by 5 b/c 5 is the average word length
-    const netWPM = Math.max(0, grossWPM - errors);
-    const accuracy = n > 0 ? (correct / n) * 100 : 0;
-
-    let displayWPM = 0;
-    if (accuracy > 80) {
-        displayWPM = grossWPM;
-    } else {
-        displayWPM = netWPM;
-    }
-
-    const calcResults = document.getElementById('results');
-    calcResults.innerHTML = `
-    <h2>Results</h2>
-    <p><strong>WPM:</strong> ${displayWPM.toFixed(2)}</p>
-    <p><strong>Errors:</strong> ${errors}</p>
-    <p><strong>Accuracy:</strong> ${accuracy.toFixed(2)}%</p>
-    `;
-    console.log("Gross WPM: ", grossWPM);////////////////////////////////////////////////////////
-    console.log("Net WPM: ", netWPM);/////////////////////////////////////////////////////////
-    console.log("Errors: ", errors);//////////////////////////////////////////////////////////
-    console.log("Accuracy: ", accuracy);///////////////////////////////////////////////////////
-}
-
-/////// CALCULATIONS END //////////
-
-
-
-/////// HIDING ELEMENTS /////////
-
-function showElement(id) {
-    document.getElementById(id).classList.remove("hidden");
-}
-
-function hideElement(id) {
-    document.getElementById(id).classList.add("hidden");
-}
-
-/////// HIDING ELEMENTS END //////

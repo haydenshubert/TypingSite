@@ -9,9 +9,13 @@
     <!-- Main content -->
     <main>
 
-        <div class="center-wrapper" id="prompt-elements">
-            <input type="text" id="prompt-input" placeholder="Enter prompt here ...">
-            <button onclick="sendPrompt()">Send Prompt</button>
+        <div  id="prompt-elements">
+            <div class="center-wrapper">
+                <input type="text" id="prompt-input" placeholder="Enter prompt here ...">
+            </div>
+            <div class="center-wrapper">
+                <button class="nice-button" onclick="sendPrompt()">Send Prompt</button>
+            </div>
         </div>
 
         <div class="center-wrapper">
@@ -23,14 +27,14 @@
                 class="hidden"
                 id="words-typed" 
                 placeholder="Start typing..."
-                rows="4" cols="70"
+                rows="8" cols="300"
                 autocorrect="off" autocapitalize="off" spellcheck="off" ></textarea>
         </div>
-        <div class="center-wrapper">
-            <h3>You have <span id="timer">60</span> seconds to type</h3>
+        <div id="clock" class="center-wrapper">
+            <h3>Timer <span id="timer">60</span> s</h3>
         </div>
         <div class="center-wrapper">
-            <button id="redo-prompt" class="hidden" onclick="showElement('prompt-elements')">Try Another Prompt</button>
+            <button id="redo-prompt" class="hidden nice-button" onclick="showElement('prompt-elements')">Try Another Prompt</button>
         </div>
         <div class="center-wrapper" id="results"></div>
     </main>

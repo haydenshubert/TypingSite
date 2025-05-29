@@ -25,3 +25,5 @@ WINDOWS ENV <env_name> == typingEnv
     - ``source <env_name>/Scripts/activate`` (activate the your venv) 
     - `` deactivate``  (to deactivate venv) 
     - ``rm –rf <env_name>`` (deletes the venv)
+
+WHEN I FINISH CODING I AM GOING TO SEND MY CODE TO GPT AND ASK IF I CAN FORMAT IT BETTER OR MAKE IT CLEANER (ADVICE)
