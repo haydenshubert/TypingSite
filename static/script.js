@@ -1,7 +1,7 @@
 ///////// TYPING FUNCTIONALITY /////////
 
 const input = document.getElementById('words-typed');
-let time = 60;  // 60 second timer
+let time = 10;  // 60 second timer
 
 
 function timer(timeLeft) {
@@ -23,7 +23,7 @@ function getInput() {
         console.log("You tyepd: ", input.value);///////////////////////////////////////////
         showElement('redo-prompt');
         calculations();
-    }, 60000);   // sets a timer for how long the input box is enabled (minute = 60000)
+    }, 10000);   // sets a timer for how long the input box is enabled (minute = 60000)
 }
 
 function startTyping() {
@@ -90,21 +90,29 @@ function calculations() {
     const targetWords = targetText.split(/\s+/);    // /\s+/ makes sure extra spaces, tabs, or newlines don't mess up word splitting
     const typedWords = typedText.split(/\s+/);
 
-    const comparisonLength = typedWords.length;
-    let errors = 0;
+    const m = targetWords.length;
+    const n = typedWords.length;
 
-    console.log("Target Text: ", targetText, "Typed Text: ", typedText, comparisonLength, errors);
+    const dp = Array.from({ length: m + 1} , () => Array(n + 1).fill(0));
+
+    console.log("Target Text: ", targetText, "Typed Text: ", typedText);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    for (let i = 0; i < comparisonLength; i++) {
-        if (typedWords[i] !== targetWords[i]) {
-            errors++;
+
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+            if (targetWords[i - 1] === typedWords[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+            }
         }
     }
 
-    const correct = comparisonLength - errors;
+    const correct = dp[m][n];
+    const errors = n - correct;
     const grossWPM = typedText.length / 5;  // This does the total characters divided by 5 b/c 5 is the average word length
     const netWPM = Math.max(0, grossWPM - errors);
-    const accuracy = comparisonLength > 0 ? (correct / comparisonLength) * 100 : 0; // short if statement
+    const accuracy = n > 0 ? (correct / n) * 100 : 0;
 
     let displayWPM = 0;
     if (accuracy > 80) {
