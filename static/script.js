@@ -22,7 +22,6 @@ function startTyping() {
 }
 
 function handleFirstKeydown(event) {
-    showElement('clock');
     startTyping();
     input.removeEventListener("keydown", handleFirstKeydown);
 }
@@ -34,11 +33,18 @@ function handleFirstKeydown(event) {
 /////// SEND PROMPT TO OLLAMA ///////////
 
 async function sendPrompt() {
-    console.log("Function was called");///////////////////////////////////////////////
     const prompt = "Write a 100 word paragraph about this topic: " + document.getElementById('prompt-input').value;
-    console.log(prompt);///////////////////////////////////////////////////////////////////
     const wordsTyped = document.getElementById('words-typed');
+    const toBeTyped = document.getElementById('to-be-typed');
+
+    toBeTyped.innerText = "Wating for response..."
+
+    console.log(prompt);///////////////////////////////////////////////////////////////////
+    console.log("Function was called");///////////////////////////////////////////////
+
     hideElement('prompt-elements');
+    showElement('to-be-typed');
+
     const res = await fetch('/ask', {
         method: 'POST',
         headers: {
@@ -50,16 +56,16 @@ async function sendPrompt() {
     const data = await res.json();
     const output = data.response || data.error;
 
-    document.getElementById('to-be-typed').innerText = output;
-    showElement('words-typed');  // Has the 'words-typed' id now
+    toBeTyped.innerText = output;
+    showElement('words-typed');
+    showElement('clock');
     wordsTyped.value = "";
     wordsTyped.disabled = false;
     wordsTyped.focus();
     document.getElementById('prompt-input').value = "";
 
     input.addEventListener("keydown", handleFirstKeydown);
-    hideElement('results');
-    hideElement('redo-prompt');
+
 }
 
 const promptInput = document.getElementById('prompt-input');
@@ -68,5 +74,15 @@ promptInput.addEventListener("keydown", function(event) {
         sendPrompt();
     }
 });
+
+function redoPrompt() {
+    showElement('prompt-elements');
+    document.getElementById('prompt-input').focus();
+    hideElement('to-be-typed');
+    hideElement('words-typed');
+    hideElement('results');
+    hideElement('redo-prompt');
+    document.getElementById('timer').innerText = "60";
+}
 
 /////// SENDING PROMPT END ////////
