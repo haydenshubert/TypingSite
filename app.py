@@ -7,6 +7,10 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 session = requests.Session()
 OLLAMA_URL = "http://localhost:11434/api/generate"
 MODEL = "llama3.2"
